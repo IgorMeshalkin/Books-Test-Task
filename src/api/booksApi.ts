@@ -1,20 +1,19 @@
 import axios from "axios";
+import {apiKey, fetchStep} from "../utils/systemVariables";
 
 const REST_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export default class BookAPI {
 
-    static async getAll() {
-        const response = await axios.get(REST_URL, {
-            // auth: {
-            //     username: 'admin', password: 'admin'
-            // },
+    static async getBooks(query: string, category: string, sortOption: string, startIndex: number) {
+        return await axios.get(REST_URL, {
             params: {
-                maxResults: 30,
-                q: 'steven s. + inauthor:steven',
-                // key: apiKey
+                maxResults: fetchStep,
+                startIndex: startIndex,
+                q: query + (category === 'all' ? '' : '+subject:' + category),
+                orderBy: sortOption,
+                key: apiKey
             }
         });
-        return response
     }
 }

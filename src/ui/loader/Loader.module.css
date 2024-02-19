@@ -1,0 +1,68 @@
+.background {
+    height: 100%;
+    width: 100%;
+    background-color: var(--app-light-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: toNotActive .3s;
+}
+
+.background.active {
+    opacity: 1;
+    pointer-events: auto;
+    animation: toActive .3s;
+}
+
+@keyframes toActive {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes toNotActive {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.loader {
+    border-radius: 50%;
+    border: var(--app-accent-color) solid;
+    border-bottom-color: transparent;
+    animation: rotation 1s linear infinite;
+    box-sizing: border-box;
+}
+
+.loader.big {
+    height: 50px;
+    width: 50px;
+    border-width: 6px;
+}
+
+.loader.small {
+    height: 30px;
+    width: 30px;
+    border-width: 4px;
+}
+
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

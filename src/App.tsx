@@ -1,49 +1,52 @@
-import {useState} from 'react';
+import {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from './hook';
 
-import {addTodo} from './store/todoSlice';
-
 import './App.css';
-import {addBooks} from "./store/bookSlice";
 import BookAPI from "./api/booksApi";
-import {getBookFromApi} from "./types/book";
 import SearchPanel from "./components/searchPanel/SearchPanel";
+import {finishFetching} from "./store/slices/fetchSlice";
+import BooksViewer from "./components/booksViewer/BooksViewer";
 
 
 function App() {
-    const [text, setText] = useState('');
     const dispatch = useAppDispatch();
 
-    const handleAction = () => {
-        if (text.trim().length) {
-            dispatch(addTodo(text));
-            setText('');
-        }
-    }
-
-    const asd = () => {
-        BookAPI.getAll().then(res => {
-            res.data.items.forEach((item: any) => {
-                try {
-                    dispatch(addBooks(getBookFromApi(item)));
-                } catch (e) {
-                    console.log('Того рот! - ' + item.id)
-                }
-            })
-        })
-    }
-
     const books = useAppSelector(state => state.books.list);
+    const fetchState = useAppSelector(state => state.fetchState);
 
-    const dsa = () => {
-        console.log(books)
-    }
+    useEffect(() => {
+        if (fetchState.isFetching) {
+            BookAPI.getBooks(fetchState.query, fetchState.category, fetchState.sortOption, fetchState.startIndex)
+                .then(res => {
+                    res.data.items.forEach((item: any) => {
+                        // console.log(item)
+                        console.log(item.volumeInfo.title)
+                        console.log(item.volumeInfo.categories)
+                    })
+                    // res.data.items.forEach((item: any) => {
+                    //     try {
+                    //         dispatch(addBooks(getBookFromApi(item)));
+                    //     } catch (e) {
+                    //         console.log('Того рот! - ' + item.id)
+                    //     }
+                    // })
+                })
+                .catch(() => {
 
+                })
+                .finally(() => {
+                    dispatch(finishFetching());
+                })
+        }
+    }, [fetchState])
 
     return (
         <div className='App'>
             <div className='searchPanelContainer'>
                 <SearchPanel/>
+            </div>
+            <div className='contentContainer'>
+                <BooksViewer/>
             </div>
         </div>
     );

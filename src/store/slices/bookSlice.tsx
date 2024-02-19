@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {Book} from "../types/book";
-
-type BookState = {
-    list: Book[];
-}
+import {Book, BookState} from "../../types/book";
 
 const initialState: BookState = {
     list: [],

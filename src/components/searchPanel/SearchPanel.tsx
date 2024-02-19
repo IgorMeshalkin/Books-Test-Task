@@ -9,8 +9,13 @@ import {
     sortOptions
 } from "../../source/staticContent";
 import magnifyingGlass from "../../source/images/magnifying-glass.png"
+import {useAppDispatch} from "../../hook";
+import {startFetching} from "../../store/slices/fetchSlice";
+import {getFetchState} from "../../types/fetch";
 
 const SearchPanel = () => {
+    const dispatch = useAppDispatch();
+
     // Elements refs.
     const inputRef = useRef<HTMLInputElement>(null);
     const categoriesSelectRef = useRef<HTMLSelectElement>(null);
@@ -29,12 +34,15 @@ const SearchPanel = () => {
         }
     }
 
-    // Starts fetching books from api.
+    // Starts first fetching books from api.
     const search = () => {
         if (inputRef.current && categoriesSelectRef.current && sortOptionsSelectRef.current) {
-            console.log(inputRef.current.value);
-            console.log(categoriesSelectRef.current.value);
-            console.log(sortOptionsSelectRef.current.value);
+            dispatch(startFetching(
+                getFetchState(
+                    inputRef.current.value,
+                    categoriesSelectRef.current.value,
+                    sortOptionsSelectRef.current.value,
+                    0)));
         }
     }
 

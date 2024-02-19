@@ -2,6 +2,7 @@
 export const searchPanelTitle = 'Search for books';
 export const categoriesLabel = 'Categories';
 export const sortingLabel = 'Sorting by';
+
 export const categories = [
     {id: 1, name: 'all'},
     {id: 2, name: 'art'},
@@ -11,6 +12,7 @@ export const categories = [
     {id: 6, name: 'medical'},
     {id: 7, name: 'poetry'}
 ];
+
 export const sortOptions = [
     {id: 1, name: 'relevance'},
     {id: 2, name: 'newest'}
