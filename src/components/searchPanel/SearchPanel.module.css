@@ -1,0 +1,73 @@
+:root {
+    --input-height-step: 30px;
+}
+
+.background {
+    height: 100%;
+    width: 100%;
+    background-image: url("../../source/images/search-panel-background.png");
+    background-size: cover;
+    background-position: right bottom;
+}
+
+.main {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(var(--app-dark-color-rgba), .6);
+    padding-right: 10%;
+    padding-left: 10%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.verticalContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.horizontalContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    color: var(--app-light-color);
+}
+
+.input {
+    height: var(--input-height-step);
+    width: 100%;
+    margin-right: var(--input-height-step);
+    margin-left: var(--input-height-step);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.searchButtonContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: calc(var(--input-height-step) * 2);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.searchButton {
+    height: var(--input-height-step);
+    width: var(--input-height-step);
+    transform: scale(.7);
+    transition: .3s;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    transform: scale(.8);
+}
+
