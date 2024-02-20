@@ -11,12 +11,14 @@ const BookDetails: React.FC<{ selectedBook: Book }> = ({selectedBook}) => {
     const dispatch = useAppDispatch();
     const booksDetailStatus = useAppSelector(state => state.books.detailsIsActive);
 
+    // Opens book details window after selected book changing.
     useEffect(() => {
         if (selectedBook.id != '') {
             dispatch(setBookDetailsStatus(true))
         }
     }, [selectedBook])
 
+    // Closes book details window.
     const closeDetails = () => {
         dispatch(setBookDetailsStatus(false))
     }
