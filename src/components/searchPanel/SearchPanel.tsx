@@ -12,7 +12,7 @@ import magnifyingGlass from "../../source/images/magnifying-glass.png"
 import {useAppDispatch} from "../../hook";
 import {startFetching} from "../../store/slices/fetchSlice";
 import {getFetchState} from "../../types/fetch";
-import {clearBookList} from "../../store/slices/bookSlice";
+import {clearBookList, setBookDetailsStatus} from "../../store/slices/bookSlice";
 
 const SearchPanel = () => {
     const dispatch = useAppDispatch();
@@ -38,6 +38,7 @@ const SearchPanel = () => {
     // Starts first fetching books from api.
     const search = () => {
         if (inputRef.current && categoriesSelectRef.current && sortOptionsSelectRef.current) {
+            dispatch(setBookDetailsStatus(false))
             dispatch(clearBookList());
             dispatch(startFetching(
                 getFetchState(

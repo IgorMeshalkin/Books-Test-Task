@@ -1,5 +1,6 @@
 import axios from "axios";
 import {apiKey, fetchStep} from "../utils/systemVariables";
+import {getQueryString} from "../utils/stringFunctions";
 
 const REST_URL = "https://www.googleapis.com/books/v1/volumes";
 
@@ -16,16 +17,4 @@ export default class BookAPI {
             }
         });
     }
-}
-
-const getQueryString = (query: string, category: string):string => {
-    let result = '';
-    if (query !== '') {
-        result += 'intitle:' + query + '+inauthor:' + query;
-    }
-    if (category !== 'all') {
-        result += query !== '' ? '+' : '';
-        result += 'subject:' + category;
-    }
-    return result;
 }

@@ -1,10 +1,13 @@
 import stl from './BooksList.module.css'
 import {getAllBooksCountMessage, loadMoreButtonText} from "../../../source/staticContent";
-import Loader from "../../../ui/loader/Loader";
+import Loader from "../../ui/loader/Loader";
 import {useAppDispatch, useAppSelector} from "../../../hook";
 import {startAdditionalFetching} from "../../../store/slices/fetchSlice";
+import BookItem from "../bookItem/BookItem";
+import React from "react";
+import {Book} from "../../../types/book";
 
-const BooksList = () => {
+const BooksList: React.FC<{ selectedBook: Book, selectBook: Function }> = ({selectedBook, selectBook}) => {
     const dispatch = useAppDispatch();
     const booksTotalCount = useAppSelector(state => state.books.totalCount);
     const books = useAppSelector(state => state.books.list);
@@ -33,7 +36,12 @@ const BooksList = () => {
             </span>
             <div className={stl.contentContainer}>
                 {
-                    books.map(book => <div key={book.id}>{book.title}</div>)
+                    books.map(book => <BookItem
+                        key={book.id}
+                        book={book}
+                        selectedBook={selectedBook}
+                        selectBook={selectBook}
+                    />)
                 }
             </div>
             <div className={stl.lineContainer}>

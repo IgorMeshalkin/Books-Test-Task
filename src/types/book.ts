@@ -4,12 +4,18 @@ export type Book = {
     authors: string[];
     categories: string[];
     description: string;
+    imageLinks: BookImageLinks;
+}
+
+type BookImageLinks = {
     thumbnail: string;
+    smallThumbnail: string;
 }
 
 export type BookState = {
     totalCount: number;
     list: Book[];
+    detailsIsActive: boolean;
 }
 
 export const getBookFromApi = (item: any):Book => {
@@ -19,6 +25,23 @@ export const getBookFromApi = (item: any):Book => {
         authors: item.volumeInfo.authors,
         categories: item.volumeInfo.categories,
         description: item.volumeInfo.description,
-        thumbnail: item.volumeInfo.imageLinks.thumbnail
+        imageLinks: {
+            thumbnail: item.volumeInfo.imageLinks.thumbnail,
+            smallThumbnail: item.volumeInfo.imageLinks.smallThumbnail
+        }
+    };
+}
+
+export const getEmptyBook = ():Book => {
+    return {
+        id: '',
+        title: '',
+        authors: [],
+        categories: [],
+        description: '',
+        imageLinks: {
+            thumbnail: '',
+            smallThumbnail: ''
+        }
     };
 }

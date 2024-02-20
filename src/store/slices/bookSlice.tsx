@@ -4,6 +4,7 @@ import {Book, BookState} from "../../types/book";
 const initialState: BookState = {
     totalCount: 0,
     list: [],
+    detailsIsActive: false
 }
 
 const todoSlice = createSlice({
@@ -19,10 +20,13 @@ const todoSlice = createSlice({
         },
         setBooksCount(state, action: PayloadAction<number>) {
             state.totalCount = action.payload;
+        },
+        setBookDetailsStatus(state, action: PayloadAction<boolean>) {
+            state.detailsIsActive = action.payload;
         }
     },
 });
 
-export const {addBooks, clearBookList, setBooksCount} = todoSlice.actions;
+export const {addBooks, clearBookList, setBooksCount, setBookDetailsStatus} = todoSlice.actions;
 
 export default todoSlice.reducer;

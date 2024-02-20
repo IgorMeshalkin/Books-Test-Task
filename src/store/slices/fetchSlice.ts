@@ -18,6 +18,7 @@ const todoSlice = createSlice({
     reducers: {
         startFetching(state, action: PayloadAction<FetchState>) {
             state.isFetching = action.payload.isFetching;
+            state.fetchIsOver = action.payload.fetchIsOver;
             state.startIndex = action.payload.startIndex;
             state.query = action.payload.query;
             state.category = action.payload.category;
