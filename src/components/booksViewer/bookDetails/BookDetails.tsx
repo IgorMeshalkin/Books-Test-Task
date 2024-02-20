@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import stl from './BoolDetails.module.css';
+import stl from './BookDetails.module.css';
 import {Book} from "../../../types/book";
 import {useAppDispatch, useAppSelector} from "../../../hook";
 import {setBookDetailsStatus} from "../../../store/slices/bookSlice";
