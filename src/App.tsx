@@ -4,13 +4,16 @@ import {useAppDispatch, useAppSelector} from './hook';
 import './App.css';
 import BookAPI from "./api/booksApi";
 import SearchPanel from "./components/searchPanel/SearchPanel";
-import {finishFetching} from "./store/slices/fetchSlice";
+import {finishFetching, overFetch} from "./store/slices/fetchSlice";
 import BooksViewer from "./components/booksViewer/BooksViewer";
+import {addBooks, setBooksCount} from "./store/slices/bookSlice";
+import {getBookFromApi} from "./types/book";
+import {fetchBooksFailMessage} from "./source/staticContent";
+import {fetchStep} from "./utils/systemVariables";
 
 
 function App() {
     const dispatch = useAppDispatch();
-
     const books = useAppSelector(state => state.books.list);
     const fetchState = useAppSelector(state => state.fetchState);
 
@@ -18,22 +21,27 @@ function App() {
         if (fetchState.isFetching) {
             BookAPI.getBooks(fetchState.query, fetchState.category, fetchState.sortOption, fetchState.startIndex)
                 .then(res => {
-                    res.data.items.forEach((item: any) => {
-                        // console.log(item)
-                        console.log(item.volumeInfo.title)
-                        console.log(item.volumeInfo.categories)
-                    })
-                    // res.data.items.forEach((item: any) => {
-                    //     try {
-                    //         dispatch(addBooks(getBookFromApi(item)));
-                    //     } catch (e) {
-                    //         console.log('Того рот! - ' + item.id)
-                    //     }
-                    // })
+                    if (res.status === 200) {
+                        dispatch(setBooksCount(res.data.totalItems));
+                        if (res.data.items) {
+                            if (res.data.items.length < fetchStep) {
+                                dispatch(overFetch());
+                            }
+                            res.data.items.forEach((item: any) => {
+                                if (books.find(b => b.id === item.id) === undefined) {
+                                    try {
+                                        dispatch(addBooks(getBookFromApi(item)));
+                                    } catch (e) {
+                                        console.error('Failed to parse Book object. ' + e);
+                                    }
+                                }
+                            })
+                        }
+                    } else {
+                        alert(fetchBooksFailMessage);
+                    }
                 })
-                .catch(() => {
-
-                })
+                .catch(() => alert(fetchBooksFailMessage))
                 .finally(() => {
                     dispatch(finishFetching());
                 })

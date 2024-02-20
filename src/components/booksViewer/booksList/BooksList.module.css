@@ -1,0 +1,60 @@
+.main {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.main::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(var(--app-dark-color-rgba), .2);
+}
+
+.lineContainer {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.lineContainer.booksCount {
+    opacity: .6;
+}
+
+.contentContainer {
+    height: 80%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.contentContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.contentContainer::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(var(--app-dark-color-rgba), .2);
+}
+
+.loadMoreButton {
+    cursor: pointer;
+    transition: .3s;
+    color: var(--app-accent-color);
+    font-weight: bold;
+}
+
+.loadMoreButton.notActive {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loadMoreButton:hover {
+    transform: translateY(-2px);
+}

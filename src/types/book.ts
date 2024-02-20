@@ -8,6 +8,7 @@ export type Book = {
 }
 
 export type BookState = {
+    totalCount: number;
     list: Book[];
 }
 

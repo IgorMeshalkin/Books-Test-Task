@@ -18,6 +18,12 @@ export const sortOptions = [
     {id: 2, name: 'newest'}
 ];
 
+// BooksViewer
+export const getAllBooksCountMessage = (count: number) => {
+    return 'Found ' + count + ' results.'
+}
+export const loadMoreButtonText = 'Load more...'
 
 // General
-export const imagesAlt='Не удалось загрузить изображение';
+export const imagesAlt = 'Не удалось загрузить изображение';
+export const fetchBooksFailMessage = 'Не удалось загрузить данные о книгах';
