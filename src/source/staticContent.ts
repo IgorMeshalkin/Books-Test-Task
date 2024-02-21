@@ -2,6 +2,7 @@
 export const searchPanelTitle = 'Search for books';
 export const categoriesLabel = 'Categories';
 export const sortingLabel = 'Sorting by';
+export const emptyQueryMessage = 'Введите запрос или выберите категорию для поиска';
 
 export const categories = [
     {id: 1, name: 'all'},

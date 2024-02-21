@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import stl from './SearchPanel.module.css'
 import {
     categories,
-    categoriesLabel,
+    categoriesLabel, emptyQueryMessage,
     imagesAlt,
     searchPanelTitle,
     sortingLabel,
@@ -38,14 +38,18 @@ const SearchPanel = () => {
     // Starts first fetching books from api.
     const search = () => {
         if (inputRef.current && categoriesSelectRef.current && sortOptionsSelectRef.current) {
-            dispatch(setBookDetailsStatus(false))
-            dispatch(clearBookList());
-            dispatch(startFetching(
-                getFetchState(
-                    inputRef.current.value,
-                    categoriesSelectRef.current.value,
-                    sortOptionsSelectRef.current.value,
-                    0)));
+            if (inputRef.current.value === '' && categoriesSelectRef.current.value === 'all') {
+                alert(emptyQueryMessage);
+            } else {
+                dispatch(setBookDetailsStatus(false))
+                dispatch(clearBookList());
+                dispatch(startFetching(
+                    getFetchState(
+                        inputRef.current.value,
+                        categoriesSelectRef.current.value,
+                        sortOptionsSelectRef.current.value,
+                        0)));
+            }
         }
     }
 

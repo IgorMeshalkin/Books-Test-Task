@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import stl from './BookDetails.module.css';
 import {Book} from "../../../types/book";
 import {useAppDispatch, useAppSelector} from "../../../hook";
@@ -10,6 +10,25 @@ import CloseButton from "../../ui/close-button/CloseButton";
 const BookDetails: React.FC<{ selectedBook: Book }> = ({selectedBook}) => {
     const dispatch = useAppDispatch();
     const booksDetailStatus = useAppSelector(state => state.books.detailsIsActive);
+
+    // 'booksDetailStatus' state was changed or not.
+    const [isActiveChanged, setIsActiveChanged] = useState(false);
+
+    // If 'booksDetailStatus' state changing first time assigns 'true' value to 'isActiveChanged' state.
+    useEffect(() => {
+        if (booksDetailStatus && !isActiveChanged) {
+            setIsActiveChanged(true)
+        }
+    }, [booksDetailStatus])
+
+    // Returns css classes for main element. If 'isActiveChanged === false' returns class without animation.
+    const getMainStyles = () => {
+        if (!isActiveChanged) {
+            return stl.main;
+        } else {
+            return booksDetailStatus ? [stl.main, stl.active].join(" ") : [stl.main, stl.notActive].join(" ");
+        }
+    }
 
     // Opens book details window after selected book changing.
     useEffect(() => {
@@ -24,7 +43,7 @@ const BookDetails: React.FC<{ selectedBook: Book }> = ({selectedBook}) => {
     }
 
     return (
-        <div className={booksDetailStatus ? [stl.main, stl.active].join(" ") : stl.main}>
+        <div className={getMainStyles()}>
             <div className={stl.imageContainer}>
                 <img src={selectedBook.imageLinks.thumbnail} className={stl.image} alt={imagesAlt}/>
             </div>

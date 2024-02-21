@@ -11,7 +11,6 @@
     background-color: var(--app-light-color);
     opacity: 0;
     pointer-events: none;
-    animation: toNotActive .3s;
     display: flex;
 }
 
@@ -19,6 +18,10 @@
     opacity: 1;
     pointer-events: auto;
     animation: toActive .3s;
+}
+
+.main.notActive {
+    animation: toNotActive .3s;
 }
 
 @keyframes toActive {
